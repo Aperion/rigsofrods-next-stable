@@ -300,19 +300,21 @@ public:
 	void calcTruckEngine(bool doUpdate, Ogre::Real dt);
 	void calcBeams_(bool doUpdate, Ogre::Real dt, int step, int maxsteps);
 	void calcAnimatedProps(bool doUpdate, Ogre::Real dt);
+	void calcSkeletonColouring(bool doUpdate);
+	void calcRigidifiers(float inverted_dt);
 	void calcHooks(bool doUpdate);
-	void calcForceFeedBack(bool doUpdate);
+	void calcRopes();
 	void calcMouse();
-	void calcNodes_(bool doUpdate, Ogre::Real dt, int step, int maxsteps);
-	void calcSlideNodes(Ogre::Real dt);
+	void calcNodes(bool doUpdate, Ogre::Real dt, int increased_accuracy, int step);
+	void calcUpdateComponents(Ogre::Real dt);
 	void calcTurboProp(bool doUpdate, Ogre::Real dt);
 	void calcScrewProp(bool doUpdate);
 	void calcWing();
 	void calcFuseDrag();
 	void calcAirBrakes();
-	void calcBuoyance(bool doUpdate, Ogre::Real dt, int step, int maxsteps);
+	void calcBuoyance(bool doUpdate, Ogre::Real dt, int step);
 	void calcAxles(bool doUpdate, Ogre::Real dt);
-	void calcWheels(bool doUpdate, Ogre::Real dt, int step, int maxsteps);
+	void calcWheels(bool doUpdate, Ogre::Real dt);
 	void calcShocks(bool doUpdate, Ogre::Real dt);
 	void calcHydros(bool doUpdate, Ogre::Real dt);
 	void calcCommands(bool doUpdate, Ogre::Real dt);
@@ -724,11 +726,6 @@ protected:
 	bool SlideNodesLocked;
 	bool GUIFeaturesChanged;
 
-	/**
-	 * calculate and apply Corrective forces
-	 * @param dt delta time in seconds
-	 */
-	void updateSlideNodeForces(const Ogre::Real dt);
 	//! Recalculate SlideNode positions
 	void resetSlideNodePositions();
 	//! Reset all the SlideNodes

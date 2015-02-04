@@ -10,7 +10,10 @@
 
 #include "RoRPrerequisites.h"
 #include "BeamData.h"
-#include <vector>
+
+#include "physics/framework/IntegrateComponents.h"
+#include "physics/framework/UpdateComponents.h"
+#include "physics/framework/Units.h"
 
 #include <OgrePrerequisites.h>
 
