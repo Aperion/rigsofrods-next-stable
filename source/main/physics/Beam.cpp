@@ -6189,7 +6189,7 @@ Beam::Beam(
 	trucknum = truck_number;
 	freePositioned = freeposition;
 	usedSkin = skin;
-	networking = networking;
+	//networking = networking;
 	memset(truckname, 0, 256);
 	sprintf(truckname, "t%i", truck_number);
 	memset(uniquetruckid, 0, 256);
