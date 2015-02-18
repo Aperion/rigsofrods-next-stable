@@ -8,6 +8,7 @@
 #ifndef VIRTUALNODEPOSITION_H_
 #define VIRTUALNODEPOSITION_H_
 #include <OgrePrerequisites.h>
+#include <OgreVector3.h>
 
 struct node_t;
 

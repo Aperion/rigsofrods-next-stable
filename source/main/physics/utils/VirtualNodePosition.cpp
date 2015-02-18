@@ -8,7 +8,6 @@
 #include "VirtualNodePosition.h"
 #include "datatypes/node.h"
 
-#include <OgreVector3.h>
 
 
 VirtualNodePosition::VirtualNodePosition(node_t* node) : _node(node), _springRate(0.0), _dampRate(0.0) {}
@@ -31,7 +30,7 @@ Ogre::Vector3 VirtualNodePosition::getBeamForces()
 	
 	// get the difference in position from where we are, and where 
 	// we are supposed to be
-	const Ogre::Vector3 deltaLen = _node->AbsPosition - _pos;
+	Ogre::Vector3 deltaLen = _node->AbsPosition - _pos;
 	
 	// remove the lower limit, this is the area in which there is no force
 	const Ogre::Real beamLen = std::max( 0.0f, deltaLen.length() - mCurThreshold );
@@ -45,6 +44,6 @@ Ogre::Vector3 VirtualNodePosition::getDampingForces()
 	const Ogre::Vector3 deltaLen = _node->AbsPosition - _pos;
 	const Ogre::Vector3 deltaVel = _node->Velocity - _vel;
 	
-	return -_dampRate * deltaVel.dotProduct(deltaLen);
+	return -_dampRate * deltaVel.dotProduct(deltaLen) * deltaLen.normalisedCopy();
 }
 
