@@ -55,7 +55,7 @@ void Beam::calcForcesEulerCompute(int doUpdate, Real dt, int step, int maxsteps)
 	calcTruckEngine(doUpdate, dt);
 
 	// calc
-	calcBeams_(doUpdate, dt, step, maxsteps);
+	calcBeams(doUpdate, dt, step, maxsteps);
 
 	// not related to physics
 	calcAnimatedProps(doUpdate, dt);
@@ -99,15 +99,15 @@ void Beam::calcTruckEngine(bool doUpdate, Real dt)
 }
 	//if (doUpdate) mWindow->setDebugText(engine->status);
 
-void Beam::calcBeams_(bool doUpdate, Real dt, int step, int maxsteps)
+void Beam::calcBeams(bool doUpdate, Real dt, int step, int maxsteps)
 {
 #if BEAMS_INTER_TRUCK_PARALLEL
 #if !BEAMS_INTRA_TRUCK_PARALLEL
-	calcBeams(doUpdate, dt, step, maxsteps);
+	calcBeams(doUpdate, dt, step, maxsteps, 0, 1);
 #else
 	if (free_beam < 100)
 	{
-		calcBeams(doUpdate, dt, step, maxsteps);
+		calcBeams(doUpdate, dt, step, maxsteps, 0, 1);
 	} else
 	{
 		runThreadTask(this, THREAD_BEAMS, true);
@@ -467,11 +467,11 @@ void Beam::calcNodes_(bool doUpdate, Real dt, int step, int maxsteps)
 	watercontact = false;
 
 #if !NODES_INTRA_TRUCK_PARALLEL
-	calcNodes(doUpdate, dt, step, maxsteps);
+	calcNodes(doUpdate, dt, step, maxsteps, 0, 1);
 #else
 	if (free_node < 50)
 	{
-		calcNodes(doUpdate, dt, step, maxsteps);
+		calcNodes(doUpdate, dt, step, maxsteps, 0, 1);
 	} else
 	{
 		runThreadTask(this, THREAD_NODES, true);
@@ -1668,11 +1668,11 @@ bool Beam::calcForcesEulerPrepare(int doUpdate, Ogre::Real dt, int step, int max
 
 #if !BEAMS_INTER_TRUCK_PARALLEL
 #if !BEAMS_INTRA_TRUCK_PARALLEL
-	calcBeams(doUpdate, dt, step, maxsteps);
+	calcBeams(doUpdate, dt, step, maxsteps, 0, 1);
 #else
 	if (free_beam < 100)
 	{
-		calcBeams(doUpdate, dt, step, maxsteps);
+		calcBeams(doUpdate, dt, step, maxstepss, 0, 1);
 	} else
 	{
 		runThreadTask(this, THREAD_BEAMS, true);
@@ -1706,7 +1706,7 @@ bool Beam::calcForcesEulerPrepare(int doUpdate, Ogre::Real dt, int step, int max
 	watercontact = false;
 
 	#if !NODES_INTRA_TRUCK_PARALLEL
-		calcNodes(doUpdate, dt, step, maxsteps);
+		calcNodes(doUpdate, dt, step, maxstepss, 0, 1);
 	#else
 		runThreadTask(this, THREAD_NODES, true);
 	#endif
