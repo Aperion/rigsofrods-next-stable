@@ -303,7 +303,7 @@ public:
 	void calcHooks(bool doUpdate);
 	void calcForceFeedBack(bool doUpdate);
 	void calcMouse();
-	void calcNodes_(bool doUpdate, Ogre::Real dt, int step, int maxsteps);
+	void calcNodes(bool doUpdate, Ogre::Real dt, int step, int maxsteps);
 	void calcUpdateComponents(Ogre::Real dt);
 	void calcTurboProp(bool doUpdate, Ogre::Real dt);
 	void calcScrewProp(bool doUpdate);

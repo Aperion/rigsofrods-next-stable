@@ -52,6 +52,8 @@ using namespace Ogre;
 void Beam::calcForcesEulerCompute(int doUpdate, Real dt, int step, int maxsteps)
 {
 	float inverted_dt = 1.0f / dt;
+	std::cout << "CRTP: dt:   " << dt
+			<< "\nCRTP: step: " << step;
 	calcTruckEngine(doUpdate, dt);
 
 	// calc
@@ -62,7 +64,6 @@ void Beam::calcForcesEulerCompute(int doUpdate, Real dt, int step, int maxsteps)
 
 	calcMouse();
 
-	calcUpdateComponents(dt);
 
 	calcTurboProp(doUpdate, dt);
 	calcScrewProp(doUpdate);
@@ -81,7 +82,7 @@ void Beam::calcForcesEulerCompute(int doUpdate, Real dt, int step, int maxsteps)
 
 	// integration, most likely this needs to be done after all the
 	// forces have been calculated other wise, forces might linger
-	calcNodes_(doUpdate, dt, step, maxsteps);
+	calcNodes(doUpdate, dt, step, maxsteps);
 
 	calcReplay(doUpdate, dt);
 	BES_STOP(BES_CORE_WholeTruckCalc);
@@ -459,8 +460,10 @@ void Beam::calcMouse()
 	}
 }
 
-void Beam::calcNodes_(bool doUpdate, Real dt, int step, int maxsteps)
+void Beam::calcNodes(bool doUpdate, Real dt, int step, int maxsteps)
 {
+	calcUpdateComponents(dt);
+
 #if NODES_INTER_TRUCK_PARALLEL
 	BES_START(BES_CORE_Nodes);
 

@@ -271,6 +271,7 @@ void RigSpawner::InitializeRig()
 
 	m_rig->origin=Ogre::Vector3::ZERO;
 	m_rig->mSlideNodes.clear();
+	m_rig->_updateComponents.clear();
 
 	m_rig->engine = nullptr;
 	m_rig->hascommands=0;
@@ -3060,6 +3061,7 @@ void RigSpawner::ProcessSlidenode(RigDef::SlideNode & def)
 
 	slide_node->setDefaultRail(rail_group);
 	m_rig->mSlideNodes.push_back(slide_node);
+	m_rig->_updateComponents.push_back( slide_node );
 }
 
 node_t* RigSpawner::FindGeneratedNodeInRig(RigDef::Node::Id & id, bool silent /* Default = false */)

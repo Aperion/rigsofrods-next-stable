@@ -296,12 +296,16 @@ Beam::~Beam()
 		delete (*it);
 	}
 	
-	
-	// Delete SlideNodes
-	for (std::vector< SlideNode* >::iterator it = mSlideNodes.begin(); it != mSlideNodes.end(); it++)
+
+	// Delete all componets
+	for (auto* component : _updateComponents)
 	{
-		delete (*it);
+		delete component;
 	}
+
+	// Delete cleanup storage
+	_updateComponents.clear();
+	mSlideNodes.clear();
 
 	if (netMT)
 	{
